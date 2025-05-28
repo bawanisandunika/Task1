@@ -7,11 +7,10 @@ interface ProxyQueueProps {
 }
 
 const ProxyQueue: React.FC<ProxyQueueProps> = ({ queueItems }) => {
-  const getProgressColorClass = (index: number, totalItems: number): string => {
-    if (index === 0) return 'bg-green-500';       // First item: green
-    if (index === 1) return 'bg-blue-500';        // Second item: blue
-    if (index === totalItems - 1) return 'bg-red-500'; // Last item: red
-    return 'bg-gray-500';                         // Default: gray (or any other fallback)
+  const getProgressColorClass = (title: string): string => {
+    if (title.includes('Clip C')) return 'bg-blue-500';   // Clip C → Blue
+    if (title.includes('Clip D')) return 'bg-green-500';  // Clip D → Green
+    return 'bg-red-500';                                 // All others → Red
   };
 
   return (
@@ -33,7 +32,7 @@ const ProxyQueue: React.FC<ProxyQueueProps> = ({ queueItems }) => {
               </div>
               <div className="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
                 <div 
-                  className={`h-full ${getProgressColorClass(index, queueItems.length)}`} 
+                  className={`h-full ${getProgressColorClass(item.title)}`} 
                   style={{ width: `${item.progress}%` }}
                 />
               </div>
